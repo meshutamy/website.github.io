@@ -1,33 +1,26 @@
-const express = require('express');
-const app = express();
-const path = require('path');
+const http = require('http');
+const fs = require('fs')
 const port = 3000; // You can choose any port you prefer
 
 // Serve static files (HTML, CSS, JavaScript)
-app.use(express.static(path.join(__dirname, 'public')));
+const server = http.createServer(function(req,res) {
+    res.writeHead(200, { 'Content-Type': 'text/html' })
+    fs.readFile('index.html', function(error, data) {
+        if (error) {
+            res.writeHead(404)
+            res.write('Error: File Not Found')
+        }else {
+            res.write(data)
+        }
+        res.end()
+    })
+})
 
-// Parse JSON and URL-encoded bodies
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+server.listen(port, function(error) {
+    if (error) {
+        console.log('Something went wrong', error)
+    }else {
+        console.log('Server is listening on port ' + port)
+    }
+})
 
-// Registration route
-app.post('/register', (req, res) => {
-    // Here, you can handle user registration logic
-    const email = req.body.email;
-    const password = req.body.password;
-
-    // For example, you can print the data for now
-    console.log('Received registration data:');
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    // You can add your registration logic here (e.g., saving to a database)
-
-    // Respond with a confirmation message
-    res.send('Registration successful!');
-});
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
