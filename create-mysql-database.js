@@ -3,8 +3,8 @@ const mysql = require('mysql2');
 // Replace these values with your MySQL server details
 const dbConfig = {
     host: 'localhost',
-    user: 'your_username',
-    password: 'your_password',
+    user: 'root',
+    password: 'root',
     database: '', // Leave this empty for now, as we'll create a new database
 };
 
