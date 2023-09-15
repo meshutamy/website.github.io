@@ -1,26 +1,27 @@
-const http = require('http');
-const fs = require('fs')
-const port = 3000; // You can choose any port you prefer
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const port = process.env.PORT || 3000;
 
 // Serve static files (HTML, CSS, JavaScript)
-const server = http.createServer(function(req,res) {
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    fs.readFile('index.html', function(error, data) {
-        if (error) {
-            res.writeHead(404)
-            res.write('Error: File Not Found')
-        }else {
-            res.write(data)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Define a route to serve the index.html file
+app.get('/', (req, res) => {
+    const indexPath = path.join(__dirname, 'public', 'index.html');
+    fs.readFile(indexPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading index.html:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.send(data);
         }
-        res.end()
-    })
-})
+    });
+});
 
-server.listen(port, function(error) {
-    if (error) {
-        console.log('Something went wrong', error)
-    }else {
-        console.log('Server is listening on port ' + port)
-    }
-})
-
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
