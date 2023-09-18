@@ -5,7 +5,7 @@ const dbConfig = {
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: '', // Leave this empty for now, as we'll create a new database
+    database: 'online_store', // Leave this empty for now, as we'll create a new database
 };
 
 // Create a MySQL connection
