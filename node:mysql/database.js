@@ -21,14 +21,13 @@ connection.connect((err) => {
     console.log('Connected to MySQL (MAMP)');
 
     // Example SQL queries
-
     // Select all records from the 'products' table
-    connection.query('SELECT * FROM products', (err, results) => {
+    connection.query('SELECT * FROM orders', (err, results) => {
         if (err) {
             console.error('Error executing SELECT query:', err);
             return;
         }
-        console.log('Products:');
+        console.log('orders:');
         console.log(results);
     });
-});
+})
