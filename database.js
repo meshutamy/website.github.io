@@ -5,7 +5,7 @@ const dbConfig = {
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'online_store', // Leave this empty for now, as we'll create a new database
+    database: 'online_store', // Replace with the name of your existing database
 };
 
 // Create a MySQL connection
@@ -19,14 +19,14 @@ connection.connect((err) => {
     }
     console.log('Connected to MySQL');
 
-    // Create a new database (change 'your_database_name' to your desired name)
-    const newDatabaseName = 'your_database_name';
+    // Now you can use 'connection' to perform database operations on your existing database
 
-    connection.query(`CREATE DATABASE IF NOT EXISTS ${newDatabaseName}`, (err, result) => {
+    // For example, you can execute a SELECT query
+    connection.query('SELECT * FROM your_table_name', (err, results) => {
         if (err) {
-            console.error('Error creating database:', err);
+            console.error('Error executing query:', err);
         } else {
-            console.log(`Database "${newDatabaseName}" created successfully`);
+            console.log('Query results:', results);
         }
 
         // Close the MySQL connection
